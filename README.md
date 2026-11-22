@@ -6,9 +6,11 @@ A tiny utility mod for **Minecraft 1.20.1 (Forge)** that makes rain read as "not
 
 In vanilla, weather is a single world-wide state shared by every dimension. Some mods read that global state directly — for example, GregTech's solar boilers check `Level#isRaining()` to decide whether they can see the sun. As a result, solar boilers placed in a void dimension (such as JAVD's void) cool down every time it rains in the overworld, even though the void itself is always clear.
 
-Void Rain Fix changes that one check: inside the configured dimensions, `Level#isRaining()` returns `false`. The weather itself is never touched — the overworld keeps its normal rain cycle, and nothing about how any dimension looks changes.
+Mekanism's solar machines are hit through a different route: instead of the boolean flag, they scale their output by the shared rain and thunder levels. A Solar Neutron Activator or solar generator in the void therefore loses most of its production while it rains in the overworld, even though it never stops outright.
 
-Made for use alongside GregTech (e.g. in the Monifactory modpack), where solar boilers in a void base would otherwise stall during overworld rain.
+Void Rain Fix changes those checks: inside the configured dimensions, `Level#isRaining()` returns `false` and the rain/thunder levels read as `0`. The weather itself is never touched — the overworld keeps its normal rain cycle, and nothing about how any dimension looks changes.
+
+Made for use alongside GregTech (e.g. in the Monifactory modpack) and Mekanism, where solar machines in a void base would otherwise stall or slow down during overworld rain.
 
 ## How it works
 
@@ -22,7 +24,7 @@ A Mixin on `Level` makes three checks read as clear weather when the current dim
 rainDisabledDimensions = ["javd:void"]
 ```
 
-Add or remove dimension IDs (e.g. `"modid:dimension_name"`) to choose where the rain flag reads as false.
+Add or remove dimension IDs (e.g. `"modid:dimension_name"`) to choose where rain reads as clear.
 
 ## Building
 
