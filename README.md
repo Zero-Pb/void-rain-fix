@@ -12,7 +12,7 @@ Made for use alongside GregTech (e.g. in the Monifactory modpack), where solar b
 
 ## How it works
 
-A single Mixin on `Level#isRaining()` returns `false` when the current dimension is in the config list. No JAVD (or any other mod) code is used or required — the dimension is matched by its ID string only.
+A Mixin on `Level` makes three checks read as clear weather when the current dimension is in the config list: `Level#isRaining()` returns `false`, and `Level#getRainLevel()` / `Level#getThunderLevel()` return `0`. The boolean covers mods that ask "is it raining?" (GregTech's solar boilers), and the levels cover mods that scale solar output by rain strength instead — for example, Mekanism's Solar Neutron Activator and solar generators lose most of their output in the void during overworld rain without this. No JAVD (or any other mod) code is used or required — the dimension is matched by its ID string only.
 
 ## Config
 
@@ -32,7 +32,7 @@ Requires JDK 17.
 ./gradlew build
 ```
 
-The built jar appears in `build/libs/voidrainfix-0.1.0.jar`. Drop it into your `mods` folder.
+The built jar appears in `build/libs/voidrainfix-0.2.0.jar`. Drop it into your `mods` folder.
 
 ## Notes
 
@@ -47,4 +47,4 @@ MIT
 
 ## 日本語
 
-オーバーワールドで雨が降るたびに、void 次元の GregTech ソーラーボイラーが冷えてしまう問題を直す小さな MOD です。天気そのものには触らず、設定した次元の中だけ `isRaining()` の判定を偽に変えます。対象次元は設定ファイルで変更でき、デフォルトは `javd:void` です。
+オーバーワールドで雨が降るたびに、void 次元の GregTech ソーラーボイラーが冷えてしまう問題を直す小さな MOD です。天気そのものには触らず、設定した次元の中だけ `isRaining()` の判定を偽に変え、雨と雷の強さも 0 として読み取らせます。雨の強さで発電量が変わる Mekanism の太陽中性子アクティベーターなどにも効きます。対象次元は設定ファイルで変更でき、デフォルトは `javd:void` です。

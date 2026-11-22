@@ -17,8 +17,9 @@ public final class VoidRainFixConfig {
                 "Dimensions in which rain is always treated as \"not raining\".",
                 "The shared weather state itself is NOT changed: the overworld keeps",
                 "raining as usual, but inside the listed dimensions Level#isRaining()",
-                "returns false. This keeps GregTech solar boilers working in the",
-                "JAVD void dimension.",
+                "returns false and the rain/thunder levels read as 0. This keeps",
+                "GregTech solar boilers working in the JAVD void dimension, and also",
+                "covers mods that scale solar output by rain level, such as Mekanism.",
                 "Entries are dimension IDs, e.g. \"javd:void\".");
         DIMENSIONS = builder.defineList("rainDisabledDimensions",
                 List.of("javd:void"),
